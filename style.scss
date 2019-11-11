@@ -11,3 +11,10 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+main .container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  .card {
+    margin: .5rem;
+  }
+}
