@@ -9,25 +9,45 @@ let books = [];
 
 const render = books => {
   // Make an html element and append it to a parent.
-  const makeElem = (parent, tag, cssClasses) => {
+  const makeElem = (parent, tag, cssClasses, innerText) => {
     const elem = document.createElement(tag);
     cssClasses.forEach(cssClass => elem.classList.add(cssClass));
+    if (innerText) elem.innerText = innerText;
     parent.appendChild(elem);
     return elem;
   };
 
   const container = document.querySelector("main .container");
 
-  books.forEach(book => {
+  books.forEach((book, index) => {
     const card = makeElem(container, "div", ["card", "text-left", "card-body"]);
+    card.setAttribute("data-index", index);
 
-    const title = makeElem(card, "h5", ["card-title"]);
-    title.innerText = book.title;
+    makeElem(card, "h5", ["card-title"], book.title);
 
-    const text = makeElem(card, "p", ["card-text"]);
-    text.innerText = `By ${book.author}, ${book.pages} pages, ${
-      book.good ? "Would recommend it" : "Wouldn't recommend it"
-    }.`;
+    makeElem(
+      card,
+      "p",
+      ["card-text"],
+      `By ${book.author}, ${book.pages} pages. ${
+        book.good ? "Would recommend it" : "Wouldn't recommend it"
+      }.`
+    );
+
+    const deleteBtn = makeElem(
+      card,
+      "button",
+      ["btn", "btn-outline-danger", "btn-sm"],
+      "Remove"
+    );
+    deleteBtn.addEventListener("click", event => {
+      const bookIndex = event.target.parentElement.getAttribute("data-index");
+      firebase
+        .database()
+        .ref(`/books/${bookIndex}`)
+        .remove() // returns promise
+        .then(() => location.reload());
+    });
   });
 };
 
@@ -40,7 +60,7 @@ const run = () => {
     .ref("/books/")
     .once("value")
     .then(snap => render(snap.val()));
-}
+};
 
 if (document.readyState != "loading") run();
 else if (document.addEventListener)

@@ -17,8 +17,15 @@ main .container {
       grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-main .container .card {
-  margin: .5rem;
+.card {
+  margin: .5em;
+  height: 11.5em;
+}
+
+.card button {
+  position: absolute;
+  bottom: 0;
+  margin: 1em 0;
 }
 
 #newBookForm input {
@@ -40,5 +47,11 @@ main .container .card {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+element {
+  position: absolute;
+  bottom: 0;
+  margin: 1em;
 }
 /*# sourceMappingURL=style.css.map */
