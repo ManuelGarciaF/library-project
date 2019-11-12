@@ -5,7 +5,6 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-// Test data
 let books = [];
 
 const render = books => {
@@ -32,8 +31,12 @@ const render = books => {
   });
 };
 
-function run() {
-  render(books);
+const run = () => {
+  firebase
+    .database()
+    .ref("/books/")
+    .once("value")
+    .then(snap => render(snap.val()));
 }
 
 // in case the document is already rendered

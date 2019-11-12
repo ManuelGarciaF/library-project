@@ -62,19 +62,10 @@
     </div>
   </div>
 
-  <script>
-    $("#exampleModal").on("show.bs.modal", event => {
-      var button = $(event.relatedTarget);
-      var modal = $(this);
-      // Use above variables to manipulate the DOM
-    });
-  </script>
-
   <main>
     <div class="container"></div>
   </main>
 
-  <script src="books.js" defer></script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -86,6 +77,17 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+
+  <!-- RealTime Database SDK -->
+  <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-database.js"></script>
+
+  <script src="firebaseInit.js"></script>
+
+  <!-- My JS -->
+  <script src="app.js" defer></script>
 </body>
 
 </html>
