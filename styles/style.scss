@@ -11,18 +11,17 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-main .container{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
+
 
 .card {
   margin: .5em;
-  height: 11.5em;
   button {
     position: absolute;
     bottom: 0;
     margin: 1em 0;
+  }
+  p {
+    margin-bottom: 3em;
   }
 }
 
@@ -44,4 +43,11 @@ element {
   position: absolute;
   bottom: 0;
   margin: 1em;
+}
+
+@media all and (min-width: 1000px) {
+  main .container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
