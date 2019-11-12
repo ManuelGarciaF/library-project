@@ -1,11 +1,13 @@
-function Book(title, author, pages, good) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.good = good;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 }
 
-let books = [];
+const database = firebase.database()
 
 const render = books => {
   // Make an html element and append it to a parent.
@@ -19,9 +21,10 @@ const render = books => {
 
   const container = document.querySelector("main .container");
 
-  books.forEach((book, index) => {
+  for (const bookId in books) {
+    const book = books[bookId]
     const card = makeElem(container, "div", ["card", "text-left", "card-body"]);
-    card.setAttribute("data-index", index);
+    card.setAttribute("data-index", bookId);
 
     makeElem(card, "h5", ["card-title"], book.title);
 
@@ -30,36 +33,47 @@ const render = books => {
       "p",
       ["card-text"],
       `By ${book.author}, ${book.pages} pages. ${
-        book.good ? "Would recommend it" : "Wouldn't recommend it"
+        book.read ? "Already read" : "Not read yet"
       }.`
     );
 
-    const deleteBtn = makeElem(
+    const deleteButton = makeElem(
       card,
       "button",
       ["btn", "btn-outline-danger", "btn-sm"],
       "Remove"
     );
-    deleteBtn.addEventListener("click", event => {
+    deleteButton.addEventListener("click", event => {
       const bookIndex = event.target.parentElement.getAttribute("data-index");
-      firebase
-        .database()
+      database
         .ref(`/books/${bookIndex}`)
         .remove() // returns promise
         .then(() => location.reload());
     });
-  });
+  };
 };
+
+document.getElementById("submitNewBook").addEventListener("click", event => {
+  const title = document.getElementById("title").value
+  const author = document.getElementById("author").value
+  const pages = document.getElementById("pages").value
+  const read = document.getElementById("read").checked
+
+  database.ref("/books/").push(new Book(title, author, pages, read))
+
+  location.reload()
+});
 
 // Does the same as `$(document).ready()`
 
 const run = () => {
   // render from the database
-  firebase
-    .database()
+  database
     .ref("/books/")
     .once("value")
-    .then(snap => render(snap.val()));
+    .then(snap => {
+      render(snap.val())
+    });
 };
 
 if (document.readyState != "loading") run();
