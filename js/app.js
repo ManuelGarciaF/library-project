@@ -1,13 +1,4 @@
-class Book {
-  constructor(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-  }
-}
-
-const database = firebase.database()
+const database = firebase.database();
 
 const render = books => {
   // Make an html element and append it to a parent.
@@ -22,7 +13,7 @@ const render = books => {
   const container = document.querySelector("main .container");
 
   for (const bookId in books) {
-    const book = books[bookId]
+    const book = books[bookId];
     const card = makeElem(container, "div", ["card", "text-left", "card-body"]);
     card.setAttribute("data-index", bookId);
 
@@ -50,18 +41,18 @@ const render = books => {
         .remove() // returns promise
         .then(() => location.reload());
     });
-  };
+  }
 };
 
 document.getElementById("submitNewBook").addEventListener("click", event => {
-  const title = document.getElementById("title").value
-  const author = document.getElementById("author").value
-  const pages = document.getElementById("pages").value
-  const read = document.getElementById("read").checked
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const pages = document.getElementById("pages").value;
+  const read = document.getElementById("read").checked;
 
-  database.ref("/books/").push(new Book(title, author, pages, read))
+  database.ref("/books/").push({ title, author, pages, read });
 
-  location.reload()
+  location.reload();
 });
 
 // Does the same as `$(document).ready()`
@@ -72,7 +63,7 @@ const run = () => {
     .ref("/books/")
     .once("value")
     .then(snap => {
-      render(snap.val())
+      render(snap.val());
     });
 };
 
