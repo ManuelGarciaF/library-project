@@ -16,20 +16,25 @@ body {
 .card {
   margin: .5em;
   button {
-    position: absolute;
+    position: relative;
     bottom: 0;
-    margin: 1em 0;
+    margin: .2em 0;
+    width: 45%;
   }
   p {
     margin-bottom: 3em;
   }
 }
 
-#newBookForm input {
-  margin: .75em 0;
-
-  &#pages {
-    width: 10em;
+#newBookForm {
+  input {
+    margin: .75em 0;
+    &#pages {
+      width: 75%;
+    }
+  }
+  .form-check-inline {
+    flex-shrink: 0;
   }
 }
 
@@ -37,12 +42,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-element {
-  position: absolute;
-  bottom: 0;
-  margin: 1em;
 }
 
 @media all and (min-width: 1000px) {

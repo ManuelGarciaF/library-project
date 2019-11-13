@@ -15,9 +15,10 @@ body {
 }
 
 .card button {
-  position: absolute;
+  position: relative;
   bottom: 0;
-  margin: 1em 0;
+  margin: .2em 0;
+  width: 45%;
 }
 
 .card p {
@@ -29,7 +30,12 @@ body {
 }
 
 #newBookForm input#pages {
-  width: 10em;
+  width: 75%;
+}
+
+#newBookForm .form-check-inline {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .flex-row {
@@ -43,12 +49,6 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-
-element {
-  position: absolute;
-  bottom: 0;
-  margin: 1em;
 }
 
 @media all and (min-width: 1000px) {

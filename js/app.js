@@ -28,19 +28,32 @@ const render = books => {
       }.`
     );
 
+    const buttonFlexContainer = makeElem(card, "div", ["flex-row"], "")
+
     const deleteButton = makeElem(
-      card,
+      buttonFlexContainer,
       "button",
       ["btn", "btn-outline-danger", "btn-sm"],
       "Remove"
     );
     deleteButton.addEventListener("click", event => {
-      const bookIndex = event.target.parentElement.getAttribute("data-index");
+      const bookIndex = event.target.parentElement.parentElement.getAttribute("data-index");
       database
         .ref(`/books/${bookIndex}`)
         .remove() // returns promise
         .then(() => location.reload());
     });
+
+    const readToggleButton = makeElem(
+      buttonFlexContainer,
+      "button",
+      ["btn", "btn-outline-info", "btn-sm"],
+      book.read ? "Unread" : "Read"
+    );
+    readToggleButton.addEventListener("click", event => {
+      const bookIndex = event.target.parentElement.parentElement.getAttribute("data-index");
+      database.ref(`/books/${bookIndex}/read/`).set(book.read ? false : true).then(() => location.reload())
+    })
   }
 };
 
